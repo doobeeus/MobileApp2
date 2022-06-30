@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "938306676940",
+    "project_id": "mobileapp-hw2",
+    "storage_bucket": "mobileapp-hw2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938306676940:android:48f11ae4a172276fd73a69",
+        "android_client_info": {
+          "package_name": "com.example.hw2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938306676940-c2q2mhpb6s0p30avhngq6nalauqpdk5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGr4Mrun3NHTTcgRcLEvmkfC8DoXn54tE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938306676940-c2q2mhpb6s0p30avhngq6nalauqpdk5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
