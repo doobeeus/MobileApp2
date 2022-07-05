@@ -93,8 +93,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       register();
                     });
                   },
-                  child: Text("REGISTER")),
-              OutlinedButton(onPressed: () {}, child: Text("FORGOT PASSWORD")),
+                  child: Text("REGISTER"))
             ]));
   }
 
