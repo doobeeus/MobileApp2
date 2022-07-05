@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
+
   @override
   State<RegisterForm> createState() => _RegisterFormState();
 }
@@ -19,6 +20,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _bio = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -74,6 +76,16 @@ class _RegisterFormState extends State<RegisterForm> {
                   return null;
                 },
               ),
+              TextFormField(
+                controller: _bio,
+                decoration: inputStyling("Biography"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Biography cannot be empty";
+                  }
+                  return null;
+                },
+              ),
               OutlinedButton(
                   onPressed: () {
                     setState(() {
@@ -100,8 +112,8 @@ class _RegisterFormState extends State<RegisterForm> {
               "firstName": _firstName.text,
               "lastName": _lastName.text,
               "userRole": "customer",
+              "bio": _bio.text,
               "creationTime": Timestamp.now(),
-              "verified": false,
             })
             .then((value) => snackBar(context, "User registered successfully."))
             .catchError((error) => snackBar(context, "FAILED. $error"));
