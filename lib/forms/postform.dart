@@ -1,5 +1,5 @@
 import 'package:hw2/model/post.dart';
-import 'package:hw2/services/database_service.dart';
+import 'package:hw2/services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class PostForm extends StatefulWidget {
 
 class _PostFormState extends State<PostForm> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final DatabaseService _db = DatabaseService();
+  final FirestoreService _fs = FirestoreService();
   final TextEditingController _message = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _PostFormState extends State<PostForm> {
   }
 
   void _submitPost() {
-    _db.addPost({
+    _fs.addPost({
       "message": _message.text,
       "owner": _auth.currentUser!.uid
     }).then((value) => Navigator.of(context).pop());

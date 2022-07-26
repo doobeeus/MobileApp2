@@ -2,10 +2,11 @@ import 'package:hw2/forms/postform.dart';
 import 'package:hw2/model/post.dart';
 import 'package:hw2/pages/authentication.dart';
 import 'package:hw2/pages/profile.dart';
-import 'package:hw2/services/database_service.dart';
+import 'package:hw2/services/firestore_service.dart';
 import 'package:hw2/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 import 'package:flutter/material.dart';
+import 'package:hw2/pages/conversations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   final fbAuth.FirebaseAuth _auth = fbAuth.FirebaseAuth.instance;
-  final DatabaseService _fs = DatabaseService();
+  final FirestoreService _fs = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +25,25 @@ class _HomeState extends State<HomePage> {
         appBar: AppBar(actions: [
           IconButton(
             onPressed: () {
-              setState(() {
-                logout();
-              });
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ConversationsPage()));
             },
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.message),
           ),
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  logout();
+                });
+              },
+              icon: const Icon(Icons.logout))
         ]),
         floatingActionButton: FloatingActionButton(
           onPressed: _showPostField,
           child: const Icon(Icons.post_add),
         ),
         body: StreamBuilder<List<Post>>(
-          stream: _fs.post,
+          stream: _fs.posts,
           builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshots) {
             if (snapshots.hasError) {
               return Center(child: Text(snapshots.error.toString()));
@@ -56,10 +63,10 @@ class _HomeState extends State<HomePage> {
                                         MaterialPageRoute(
                                             builder: (context) => Profile(
                                                 observedUser:
-                                                    DatabaseService.userMap[
+                                                    FirestoreService.userMap[
                                                         posts[index].owner]!)));
                                   },
-                                  child: Text(DatabaseService
+                                  child: Text(FirestoreService
                                       .userMap[posts[index].owner]!.firstName)),
                               subtitle: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,

@@ -3,7 +3,7 @@ import 'package:hw2/pages/home.dart';
 import 'package:hw2/model/user.dart';
 import 'package:hw2/model/post.dart';
 import 'package:flutter/material.dart';
-import 'package:hw2/services/database_service.dart';
+import 'package:hw2/services/firestore_service.dart';
 import 'package:hw2/widgets/loading.dart';
 
 class Profile extends StatefulWidget {
@@ -17,7 +17,7 @@ class Profile extends StatefulWidget {
 
 class _State extends State<Profile> {
   final fbAuth.FirebaseAuth _auth = fbAuth.FirebaseAuth.instance;
-  final DatabaseService _db = DatabaseService();
+  final FirestoreService _db = FirestoreService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _State extends State<Profile> {
           Container(child: const Text("")), //empty line
           Container(child: const Text("Posts: ")),
           StreamBuilder<List<Post>>(
-            stream: _db.post,
+            stream: _db.posts,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Post>> snapshots) {
               if (snapshots.hasError) {
